@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+d=$(mktemp --quiet -d)
+pushd $d > /dev/null
+
+cargo init --quiet --bin calcul
+pushd calcul > /dev/null
+echo "fn main() {" > src/main.rs
+echo "    println!(\"{}\", $@);" >> src/main.rs
+echo "}" >> src/main.rs
+cargo run --quiet
+
+popd > /dev/null
+popd > /dev/null
+
+rm -r $d
